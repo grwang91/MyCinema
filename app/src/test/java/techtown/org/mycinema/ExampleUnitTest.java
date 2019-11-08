@@ -1,4 +1,4 @@
-package techtown.org.mydrawer;
+package techtown.org.mycinema;
 
 import org.junit.Test;
 
