@@ -1,8 +1,5 @@
-package techtown.org.mydrawer;
+package techtown.org.mycinema;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.media.Image;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,8 +18,9 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 
 
-import techtown.org.mydrawer.Lists.List1Fragment;
-import techtown.org.mydrawer.MovieListApi.MovieList;
+import techtown.org.mycinema.Lists.List1Fragment;
+import techtown.org.mycinema.MovieListApi.MovieList;
+import techtown.org.mycinema.R;
 
 public class PagerFragment extends Fragment {
 

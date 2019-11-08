@@ -1,4 +1,4 @@
-package techtown.org.mydrawer.Lists.Sangse;
+package techtown.org.mycinema.Lists.Sangse;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -20,13 +20,13 @@ import androidx.fragment.app.Fragment;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 
-import techtown.org.mydrawer.CommentActivity;
-import techtown.org.mydrawer.CommentItem;
-import techtown.org.mydrawer.ImageLoadTask;
-import techtown.org.mydrawer.MovieListApi.MovieSangse;
-import techtown.org.mydrawer.OneLineActivity;
-import techtown.org.mydrawer.OneLineView;
-import techtown.org.mydrawer.R;
+import techtown.org.mycinema.MovieListApi.MovieSangse;
+import techtown.org.mycinema.CommentActivity;
+import techtown.org.mycinema.CommentItem;
+import techtown.org.mycinema.ImageLoadTask;
+import techtown.org.mycinema.OneLineActivity;
+import techtown.org.mycinema.OneLineView;
+import techtown.org.mycinema.R;
 
 public class SangseList1 extends Fragment {
 

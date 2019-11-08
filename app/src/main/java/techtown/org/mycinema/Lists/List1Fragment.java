@@ -1,7 +1,5 @@
-package techtown.org.mydrawer.Lists;
+package techtown.org.mycinema.Lists;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,15 +14,12 @@ import androidx.fragment.app.Fragment;
 
 import com.google.gson.Gson;
 
-import java.util.ArrayList;
-
-import techtown.org.mydrawer.ImageLoadTask;
-import techtown.org.mydrawer.Lists.Sangse.SangseList1;
-import techtown.org.mydrawer.MovieListApi.Movie;
-import techtown.org.mydrawer.MovieListApi.MovieContent;
-import techtown.org.mydrawer.MovieListApi.MovieList;
-import techtown.org.mydrawer.R;
-import techtown.org.mydrawer.RequestSend;
+import techtown.org.mycinema.Lists.Sangse.SangseList1;
+import techtown.org.mycinema.MovieListApi.Movie;
+import techtown.org.mycinema.MovieListApi.MovieContent;
+import techtown.org.mycinema.ImageLoadTask;
+import techtown.org.mycinema.R;
+import techtown.org.mycinema.RequestSend;
 
 public class List1Fragment extends Fragment {
 

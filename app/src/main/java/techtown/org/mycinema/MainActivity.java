@@ -1,4 +1,4 @@
-package techtown.org.mydrawer;
+package techtown.org.mycinema;
 
 import android.os.Bundle;
 
@@ -20,6 +20,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.view.Menu;
+
+import techtown.org.mycinema.R;
 
 public class MainActivity extends AppCompatActivity {
 

@@ -7,25 +7,25 @@
 
     <fragment
         android:id="@+id/nav_list"
-        android:name="techtown.org.mydrawer.ListFragment"
+        android:name="techtown.org.mycinema.ListFragment"
         android:label="@string/menu_list"
         tools:layout="@layout/fragment_list" />
 
     <fragment
         android:id="@+id/nav_api"
-        android:name="techtown.org.mydrawer.ApiFragment"
+        android:name="techtown.org.mycinema.ApiFragment"
         android:label="@string/menu_api"
         tools:layout="@layout/fragment_api" />
 
     <fragment
         android:id="@+id/nav_book"
-        android:name="techtown.org.mydrawer.BookFragment"
+        android:name="techtown.org.mycinema.BookFragment"
         android:label="@string/menu_book"
         tools:layout="@layout/fragment_book" />
 
     <fragment
         android:id="@+id/nav_settings"
-        android:name="techtown.org.mydrawer.SettingsFragment"
+        android:name="techtown.org.mycinema.SettingsFragment"
         android:label="@string/menu_settings"
         tools:layout="@layout/fragment_settings" />
 </navigation>

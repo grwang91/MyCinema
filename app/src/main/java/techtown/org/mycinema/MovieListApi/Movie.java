@@ -1,4 +1,4 @@
-package techtown.org.mydrawer.MovieListApi;
+package techtown.org.mycinema.MovieListApi;
 
 public class Movie {
     public String id;

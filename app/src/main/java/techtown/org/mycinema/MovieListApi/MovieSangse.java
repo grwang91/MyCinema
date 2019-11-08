@@ -1,4 +1,4 @@
-package techtown.org.mydrawer.MovieListApi;
+package techtown.org.mycinema.MovieListApi;
 
 public class MovieSangse {
     public String title;

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="techtown.org.mydrawer">
+    package="techtown.org.mycinema">
     <uses-permission android:name="android.permission.INTERNET"/>
 
 
@@ -12,10 +12,10 @@
         android:roundIcon="@drawable/ic_app"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".OneLineActivity" />
-        <activity android:name=".CommentActivity" />
+        <activity android:name="techtown.org.mycinema.OneLineActivity" />
+        <activity android:name="techtown.org.mycinema.CommentActivity" />
         <activity
-            android:name=".MainActivity"
+            android:name="techtown.org.mycinema.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>

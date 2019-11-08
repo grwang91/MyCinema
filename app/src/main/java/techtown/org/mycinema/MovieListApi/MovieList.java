@@ -1,4 +1,4 @@
-package techtown.org.mydrawer.MovieListApi;
+package techtown.org.mycinema.MovieListApi;
 
 import android.os.Parcel;
 import android.os.Parcelable;

@@ -1,4 +1,4 @@
-package techtown.org.mydrawer;
+package techtown.org.mycinema;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -10,9 +10,10 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
+
+import techtown.org.mycinema.R;
 
 public class OneLineActivity extends AppCompatActivity {
     CommentAdapter adapter;

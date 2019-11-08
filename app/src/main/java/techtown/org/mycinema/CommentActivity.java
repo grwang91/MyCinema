@@ -1,4 +1,4 @@
-package techtown.org.mydrawer;
+package techtown.org.mycinema;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RatingBar;
+
+import techtown.org.mycinema.R;
 
 public class CommentActivity extends AppCompatActivity {
 
