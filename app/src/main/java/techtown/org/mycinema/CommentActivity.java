@@ -31,8 +31,10 @@ public class CommentActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
+                int time = (int)(System.currentTimeMillis()/1000);
                 intent.putExtra("content", editText.getText().toString());
                 intent.putExtra("rating", ratingBar.getRating());
+                intent.putExtra("time",time);
                 setResult(Activity.RESULT_OK, intent);
                 finish();
             }

@@ -10,6 +10,8 @@ import androidx.appcompat.widget.AppCompatRatingBar;
 
 import techtown.org.mycinema.R;
 
+import static java.lang.System.currentTimeMillis;
+
 public class OneLineView extends LinearLayout {
 
     TextView id1;
@@ -43,7 +45,20 @@ public class OneLineView extends LinearLayout {
     }
 
     public void setTime1(int time) {
-        time1.setText(time + "분전");
+        int a = (int)(System.currentTimeMillis()/1000);
+        time = a-time;
+
+        if (time < 60) {
+            time1.setText(time + "초전");
+        } else if (time <60*60) {
+            time1.setText(time/60 + "분전");
+        } else if (time < 60*60*24) {
+            time1.setText(time/3600 + "시간전");
+        } else {
+            time1.setText(time/3600/24 + "일전");
+        }
+
+
     }
 
     public void setRating1(float rating) {

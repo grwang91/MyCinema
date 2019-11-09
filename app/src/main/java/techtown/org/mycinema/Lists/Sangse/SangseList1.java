@@ -17,9 +17,13 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatRatingBar;
 import androidx.fragment.app.Fragment;
 
+import com.google.gson.Gson;
+
 import java.text.NumberFormat;
 import java.util.ArrayList;
 
+import techtown.org.mycinema.MovieListApi.Comments;
+import techtown.org.mycinema.MovieListApi.MovieComment;
 import techtown.org.mycinema.MovieListApi.MovieSangse;
 import techtown.org.mycinema.CommentActivity;
 import techtown.org.mycinema.CommentItem;
@@ -27,6 +31,7 @@ import techtown.org.mycinema.ImageLoadTask;
 import techtown.org.mycinema.OneLineActivity;
 import techtown.org.mycinema.OneLineView;
 import techtown.org.mycinema.R;
+import techtown.org.mycinema.RequestSend;
 
 public class SangseList1 extends Fragment {
 
@@ -42,6 +47,7 @@ public class SangseList1 extends Fragment {
     protected ListView listView;
     public ImageView movieImage;
     public TextView movieName;
+    public MovieComment movieComment;
 
     @Nullable
     @Override
@@ -97,9 +103,33 @@ public class SangseList1 extends Fragment {
 
 
 
+
         adapter = new CommentAdapter();
-        adapter.addItem(new CommentItem("grwang", 10, 5, "적당히 재밌다. ㅎㅎㅎ"));
-        listView.setAdapter(adapter);
+
+        RequestSend rq = new RequestSend(){
+            @Override
+            public void processResponse(String response) {
+                super.processResponse(response);
+
+                Gson gson = new Gson();
+                movieComment = gson.fromJson(response, MovieComment.class);
+                ArrayList<Comments> comments = movieComment.result;
+
+                int i;
+                Comments temp;
+
+                for (i=0; i<comments.size(); i++) {
+                    temp = comments.get(i);
+                    adapter.addItem(new CommentItem(temp.writer, temp.timestamp ,temp.rating, temp.contents));
+                }
+                listView.setAdapter(adapter);
+
+
+
+            }
+        };
+        rq.sendRequest("http://boostcourse-appapi.connect.or.kr:10000//movie/readCommentList?id=" + movieSangse.id);
+
 
         //작성하기 버튼 눌렸을 때
         jaksung.setOnClickListener(new View.OnClickListener() {
@@ -116,11 +146,15 @@ public class SangseList1 extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), OneLineActivity.class);
                 intent.putExtra("comments", adapter.items);
+                intent.putExtra("movie", movieSangse.title);
+                intent.putExtra("grade", movieSangse.grade);
+                intent.putExtra("rating", movieSangse.user_rating);
+                intent.putExtra("total", movieComment.totalCount);
                 startActivityForResult(intent, 101);
             }
         });
 
-        
+
 
 
 
@@ -240,7 +274,8 @@ public class SangseList1 extends Fragment {
         if (requestCode == 102 && resultCode == Activity.RESULT_OK) {
             String content = data.getStringExtra("content");
             float rating = data.getFloatExtra("rating", 0.0f);
-            adapter.addItem(new CommentItem("grwang", 10, rating, content));
+            int time = data.getIntExtra("time", 0);
+            adapter.addItem(new CommentItem("grwang", time, rating, content));
             listView.setAdapter(adapter);
         }
 

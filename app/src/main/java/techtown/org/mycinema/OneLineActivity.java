@@ -9,7 +9,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RatingBar;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -18,12 +21,22 @@ import techtown.org.mycinema.R;
 public class OneLineActivity extends AppCompatActivity {
     CommentAdapter adapter;
     ListView listView;
+    TextView movieName;
+    ImageView gradeImage;
+    RatingBar ratingBar;
+    TextView rating;
+    TextView total;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_one_line);
 
+        movieName = (TextView) findViewById(R.id.movieName);
+        gradeImage = (ImageView) findViewById(R.id.gradeImage);
+        ratingBar = (RatingBar) findViewById(R.id.ratingBar);
+        rating = (TextView) findViewById(R.id.rating);
+        total = (TextView) findViewById(R.id.total);
 
         Intent passedIntent = getIntent();
         adapter = new CommentAdapter();
@@ -72,7 +85,8 @@ public class OneLineActivity extends AppCompatActivity {
 
             String content = data.getStringExtra("content");
             float rating = data.getFloatExtra("rating", 0.0f);
-            adapter.addItem(new CommentItem("grwang", 10, rating, content));
+            int time = data.getIntExtra("time",0);
+            adapter.addItem(new CommentItem("grwang", time, rating, content));
             listView.setAdapter(adapter);
         }
 
@@ -82,9 +96,29 @@ public class OneLineActivity extends AppCompatActivity {
         if(intent != null) {
             ArrayList<CommentItem> items2 = new ArrayList<CommentItem>();
             items2 = (ArrayList<CommentItem>) intent.getSerializableExtra("comments");
+
+            String movie = (String) intent.getSerializableExtra("movie");
+            int grade = (int) intent.getSerializableExtra("grade");
+            float ratingScore = (float)intent.getSerializableExtra("rating");
+            int totalNumber = (int) intent.getSerializableExtra("total");
+
             if(items2 != null) {
                 adapter.items = items2;
             }
+            movieName.setText(movie);
+            rating.setText(" " + Float.toString(ratingScore*2) +" ");
+            ratingBar.setRating(ratingScore);
+            total.setText("(" + Integer.toString(totalNumber)+"명 참여)");
+
+            if (grade == 12) {
+                gradeImage.setImageResource(R.drawable.ic_12);
+            } else if (grade == 15) {
+                gradeImage.setImageResource(R.drawable.ic_15);
+            } else if (grade == 19) {
+                gradeImage.setImageResource(R.drawable.ic_19);
+            }
+
+
         }
     }
 

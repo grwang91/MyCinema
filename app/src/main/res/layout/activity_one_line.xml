@@ -41,14 +41,15 @@
         android:orientation="horizontal">
 
         <TextView
+            android:id="@+id/movieName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:text="군도"
             android:textSize="30dp"
             android:textStyle="bold" />
 
         <ImageView
+            android:id="@+id/gradeImage"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginTop="15dp"
@@ -69,6 +70,7 @@
         android:layout_marginBottom="7dp">
 
         <androidx.appcompat.widget.AppCompatRatingBar
+            android:id="@+id/ratingBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/Widget.AppCompat.RatingBar.Small"
@@ -80,11 +82,13 @@
             />
 
         <TextView
+            android:id="@+id/rating"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="8.2 " />
 
         <TextView
+            android:id="@+id/total"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="(1,142명 참여)" />
