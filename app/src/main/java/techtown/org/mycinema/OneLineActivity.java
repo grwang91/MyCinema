@@ -26,6 +26,7 @@ public class OneLineActivity extends AppCompatActivity {
     RatingBar ratingBar;
     TextView rating;
     TextView total;
+    int id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +50,7 @@ public class OneLineActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), CommentActivity.class);
+                intent.putExtra("id", id);
                 startActivityForResult(intent, 103);
             }
         });
@@ -77,30 +79,31 @@ public class OneLineActivity extends AppCompatActivity {
         finish();
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == 103 && resultCode == Activity.RESULT_OK) {
-
-            String content = data.getStringExtra("content");
-            float rating = data.getFloatExtra("rating", 0.0f);
-            int time = data.getIntExtra("time",0);
-            adapter.addItem(new CommentItem("grwang", time, rating, content));
-            listView.setAdapter(adapter);
-        }
-
-    }
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//
+//        if (requestCode == 103 && resultCode == Activity.RESULT_OK) {
+//
+//            String content = data.getStringExtra("content");
+//            float rating = data.getFloatExtra("rating", 0.0f);
+//            int time = data.getIntExtra("time",0);
+//            adapter.addItem(new CommentItem("grwang", time, rating, content));
+//            listView.setAdapter(adapter);
+//        }
+//
+//    }
 
     private void processIntent(Intent intent) {
         if(intent != null) {
             ArrayList<CommentItem> items2 = new ArrayList<CommentItem>();
             items2 = (ArrayList<CommentItem>) intent.getSerializableExtra("comments");
 
-            String movie = (String) intent.getSerializableExtra("movie");
-            int grade = (int) intent.getSerializableExtra("grade");
-            float ratingScore = (float)intent.getSerializableExtra("rating");
-            int totalNumber = (int) intent.getSerializableExtra("total");
+            String movie = (String) intent.getStringExtra("movie");
+            int grade = (int) intent.getIntExtra("grade",0);
+            float ratingScore = (float)intent.getFloatExtra("rating",0);
+            int totalNumber = (int) intent.getIntExtra("total",0);
+            id = (int) intent.getIntExtra("id",0);
 
             if(items2 != null) {
                 adapter.items = items2;

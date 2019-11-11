@@ -54,6 +54,7 @@ public class SangseList1 extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = (View) inflater.inflate(R.layout.sangse_list1, container,false);
 
+        final int id = movieSangse.id;
         good = (Button) rootView.findViewById(R.id.good);
         bad = (Button) rootView.findViewById(R.id.bad);
         goodNum = (TextView) rootView.findViewById(R.id.goodNum);
@@ -136,6 +137,7 @@ public class SangseList1 extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), CommentActivity.class);
+                intent.putExtra("id", movieSangse.id);
                 startActivityForResult(intent, 102);
             }
         });
@@ -150,6 +152,7 @@ public class SangseList1 extends Fragment {
                 intent.putExtra("grade", movieSangse.grade);
                 intent.putExtra("rating", movieSangse.user_rating);
                 intent.putExtra("total", movieComment.totalCount);
+                intent.putExtra("id", movieSangse.id);
                 startActivityForResult(intent, 101);
             }
         });
