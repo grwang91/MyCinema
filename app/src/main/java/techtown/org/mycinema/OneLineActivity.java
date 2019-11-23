@@ -26,7 +26,10 @@ public class OneLineActivity extends AppCompatActivity {
     RatingBar ratingBar;
     TextView rating;
     TextView total;
+    int grade;
     int id;
+
+    String movie;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,17 +48,20 @@ public class OneLineActivity extends AppCompatActivity {
         processIntent(passedIntent);
         listView.setAdapter(adapter);
 
+        //작성하기 버튼
         Button jaksung = (Button) findViewById(R.id.jaksung);
         jaksung.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), CommentActivity.class);
                 intent.putExtra("id", id);
+                intent.putExtra("movie", movie);
+                intent.putExtra("grade",grade);
                 startActivityForResult(intent, 103);
             }
         });
 
-
+        //뒤로가기 버튼
         Button button_back = (Button) findViewById(R.id.button_back);
         button_back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,8 +105,8 @@ public class OneLineActivity extends AppCompatActivity {
             ArrayList<CommentItem> items2 = new ArrayList<CommentItem>();
             items2 = (ArrayList<CommentItem>) intent.getSerializableExtra("comments");
 
-            String movie = (String) intent.getStringExtra("movie");
-            int grade = (int) intent.getIntExtra("grade",0);
+            movie = (String) intent.getStringExtra("movie");
+            grade = (int) intent.getIntExtra("grade",0);
             float ratingScore = (float)intent.getFloatExtra("rating",0);
             int totalNumber = (int) intent.getIntExtra("total",0);
             id = (int) intent.getIntExtra("id",0);

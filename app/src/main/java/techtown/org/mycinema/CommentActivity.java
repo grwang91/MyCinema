@@ -9,7 +9,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RatingBar;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -20,6 +22,9 @@ public class CommentActivity extends AppCompatActivity {
     int id;
     EditText editText;
     RatingBar ratingBar;
+    int grade;
+    String title;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,8 +35,21 @@ public class CommentActivity extends AppCompatActivity {
         Button save = (Button) findViewById(R.id.save);
         editText = (EditText) findViewById(R.id.editText);
 
+        TextView movieName = (TextView) findViewById(R.id.movieNameComment);
+        ImageView gradeImage = (ImageView) findViewById(R.id.gradeImageComment);
+
         Intent passedIntent = getIntent();
         processIntent(passedIntent);
+
+        movieName.setText(title);
+
+        if(grade == 12) {
+            gradeImage.setImageResource(R.drawable.ic_12);
+        } else if (grade == 15) {
+            gradeImage.setImageResource(R.drawable.ic_15);
+        } else {
+            gradeImage.setImageResource(R.drawable.ic_19);
+        }
 
         //확인버튼 눌렀을 때
         save.setOnClickListener(new View.OnClickListener() {
@@ -44,9 +62,6 @@ public class CommentActivity extends AppCompatActivity {
                         + id + "&writer=grwang&rating=" + ratingBar.getRating() + "&contents=" + editText.getText().toString();
                 RequestSend rq = new RequestSend();
                 rq.sendRequest(url);
-//                intent.putExtra("content", editText.getText().toString());
-//                intent.putExtra("rating", ratingBar.getRating());
-//                intent.putExtra("time",time);
                 setResult(Activity.RESULT_OK, intent);
                 finish();
             }
@@ -64,7 +79,9 @@ public class CommentActivity extends AppCompatActivity {
     private void processIntent(Intent intent) {
         if(intent != null) {
             id = (int) intent.getIntExtra("id",0);
-
+            grade = (int) intent.getIntExtra("grade",0);
+            title = (String) intent.getStringExtra("movie");
         }
     }
+
 }

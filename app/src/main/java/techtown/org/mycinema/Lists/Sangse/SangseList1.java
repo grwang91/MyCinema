@@ -114,6 +114,7 @@ public class SangseList1 extends Fragment {
 
                 Gson gson = new Gson();
                 movieComment = gson.fromJson(response, MovieComment.class);
+
                 ArrayList<Comments> comments = movieComment.result;
 
                 int i;
@@ -138,6 +139,8 @@ public class SangseList1 extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), CommentActivity.class);
                 intent.putExtra("id", movieSangse.id);
+                intent.putExtra("movie", movieSangse.title);
+                intent.putExtra("grade",movieSangse.grade);
                 startActivityForResult(intent, 102);
             }
         });
