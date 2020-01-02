@@ -1,5 +1,8 @@
 package techtown.org.mycinema.Lists;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,16 +17,23 @@ import androidx.fragment.app.Fragment;
 
 import com.google.gson.Gson;
 
+import java.net.URL;
+
+import techtown.org.mycinema.AppHelper;
 import techtown.org.mycinema.Lists.Sangse.SangseList1;
 import techtown.org.mycinema.MovieListApi.Movie;
 import techtown.org.mycinema.MovieListApi.MovieContent;
 import techtown.org.mycinema.ImageLoadTask;
+import techtown.org.mycinema.NetworkStatus;
 import techtown.org.mycinema.R;
 import techtown.org.mycinema.RequestSend;
+
+import static techtown.org.mycinema.MainActivity.database;
 
 public class List1Fragment extends Fragment {
 
     public Movie movie;
+    public static int network;
 
     @Nullable
     @Override
@@ -31,6 +41,9 @@ public class List1Fragment extends Fragment {
         View rootView = inflater.inflate(R.layout.list_1, container, false);
 
         final String id = movie.id;
+
+
+        network = NetworkStatus.getConnectivityStatus(getContext());
 
         ImageView imageView = (ImageView) rootView.findViewById(R.id.imageView);
         TextView nameText = (TextView) rootView.findViewById(R.id.nameText);
@@ -73,8 +86,28 @@ public class List1Fragment extends Fragment {
     public void sendImageRequest(String address, ImageView imageView) {
         String url = address;
 
-        ImageLoadTask task = new ImageLoadTask(url, imageView);
-        task.execute();
+        if (network == NetworkStatus.TYPE_MOBILE || network == NetworkStatus.TYPE_WIFI) {
+            ImageLoadTask task = new ImageLoadTask(url, imageView);
+            task.execute();
+
+            //DB 저장
+            try {
+                URL uurl = new URL(url);
+                Bitmap bitmap = BitmapFactory.decodeStream(uurl.openConnection().getInputStream());
+                if (bitmap == null){
+                    AppHelper.println("널");
+                }
+                byte[] bytes = AppHelper.bitmapToByteArray(bitmap);
+                database.execSQL("update outline set image="+bytes + " where id = " + movie.id);
+            } catch(Exception e) {
+                e.printStackTrace();
+            }
+
+
+        } else {
+
+        }
+
     }
 
     public void setText(TextView textView, String string) {

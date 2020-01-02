@@ -1,5 +1,6 @@
 package techtown.org.mycinema;
 
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,14 +20,19 @@ import java.util.ArrayList;
 
 
 import techtown.org.mycinema.Lists.List1Fragment;
+import techtown.org.mycinema.MovieListApi.Movie;
 import techtown.org.mycinema.MovieListApi.MovieList;
 import techtown.org.mycinema.R;
+
+import static techtown.org.mycinema.AppHelper.println;
+import static techtown.org.mycinema.MainActivity.database;
 
 public class PagerFragment extends Fragment {
 
     public static MovieList movieList;
     private MovieListAdapter adapter;
     private ViewPager pager;
+    private static int total;
 
     @Nullable
     @Override
@@ -49,7 +55,7 @@ public class PagerFragment extends Fragment {
                 super.processResponse(response);
                 Gson gson = new Gson();
                 movieList = gson.fromJson(response, MovieList.class);
-                int total = movieList.result.size();
+                total = movieList.result.size();
                 List1Fragment[] fragments = new List1Fragment[total];
 
                 int i;
@@ -58,15 +64,47 @@ public class PagerFragment extends Fragment {
                     fragments[i] = new List1Fragment();
                     fragments[i].movie = movieList.result.get(i);
                     adapter.addItem(fragments[i]);
+                    AppHelper.insertDataOutline(database,fragments[i].movie);
                 }
                 pager.setAdapter(adapter);
             }
         };
 
-        rs.sendRequest("http://boostcourse-appapi.connect.or.kr:10000/movie/readMovieList?type=1");
+        if (NetworkStatus.getConnectivityStatus(getContext()) == NetworkStatus.TYPE_NOT_CONNECTED) {
+            // DB에서 불러오기
+            Cursor cursor = AppHelper.selectTable(database, AppHelper.selectTableOutlineSql, "outline");
+            total = cursor.getCount();
+            println(Integer.toString(total));
+            List1Fragment[] fragments = new List1Fragment[total];
+            Movie[] movies = new Movie[total];
+            int i;
 
+            for (i=0; i<=total-1; i++) {
+
+
+                cursor.moveToNext();
+
+                movies[i] = new Movie();
+                movies[i].id = cursor.getString(0);
+                movies[i].title = cursor.getString(1);
+                movies[i].reservation_rate = cursor.getFloat(2);
+                movies[i].grade = cursor.getInt(3);
+                fragments[i] = new List1Fragment();
+                fragments[i].movie = movies[i];
+                println(movies[i].title);
+                adapter.addItem(fragments[i]);
+            }
+            pager.setAdapter(adapter);
+
+
+
+        } else {
+            rs.sendRequest("http://boostcourse-appapi.connect.or.kr:10000/movie/readMovieList?type=1");
+
+        }
         return rootView;
     }
+
 
 
     class MovieListAdapter extends FragmentStatePagerAdapter {

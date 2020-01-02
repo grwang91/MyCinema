@@ -1,5 +1,6 @@
 package techtown.org.mycinema;
 
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -26,6 +27,8 @@ import techtown.org.mycinema.R;
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
+    public static SQLiteDatabase database;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +48,11 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
+        database = AppHelper.openDatabase(getApplicationContext(),"cinema");
+        AppHelper.createTable(database,AppHelper.createTableOutlineSql,"outline");
+
+
     }
 
     @Override

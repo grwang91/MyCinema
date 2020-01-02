@@ -25,7 +25,7 @@ public class ImageLoadTask extends AsyncTask<Void, Void, Bitmap>  {
     }
 
     @Override
-    protected Bitmap doInBackground(Void... voids) {
+    public Bitmap doInBackground(Void... voids) {
         Bitmap bitmap = null;
         try {
             if (bitmapHash.containsKey(urlStr)) {
@@ -37,7 +37,6 @@ public class ImageLoadTask extends AsyncTask<Void, Void, Bitmap>  {
             }
             URL url = new URL(urlStr);
             bitmap = BitmapFactory.decodeStream(url.openConnection().getInputStream());
-
             bitmapHash.put(urlStr,bitmap);
         } catch (Exception e) {
             e.printStackTrace();
